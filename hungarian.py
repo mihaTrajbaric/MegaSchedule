@@ -136,6 +136,7 @@ class Hungarian:
 
             # If number of zeros in the matrix is zero before finding all the results then an error has occurred.
             if not zero_locations.any():
+                break
                 raise HungarianError("Unable to find results. Algorithm has failed.")
 
             # Find results and mark rows and columns for deletion
