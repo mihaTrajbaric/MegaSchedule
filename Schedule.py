@@ -86,7 +86,7 @@ def write_schedule(file_out, result, names, nodes_meetings, birthdays):
             writer.writerow({'meeting': meeting, 'name': name, 'birthday': birthday, 'difference[days]': distance})
 
 
-def run(file_in, file_out, boundaries, holidays_dates, weekday):
+def make_schedule(file_in, file_out, boundaries, holidays_dates, weekday):
     meetings = [int(x) for x in
                 gen_days(boundaries[0], boundaries[1], holidays_dates=holidays_dates, iso_weekday=weekday)]
     start_year = datetime.datetime.fromtimestamp(boundaries[0]).replace(tzinfo=timezone.utc).year
@@ -120,8 +120,8 @@ if __name__ == '__main__':
                                           end_date='2020-6-15',
                                           date_format='%Y-%m-%d')
 
-    run(file_in='example_data/birthdays.csv',
-        file_out='example_data/schedule_2019_20.csv',
-        boundaries=boundaries,
-        holidays_dates=holidays_list,
-        weekday=1)  # (1 monday, 7 sunday)
+    make_schedule(file_in='example_data/birthdays.csv',
+                  file_out='example_data/schedule_2019_20.csv',
+                  boundaries=boundaries,
+                  holidays_dates=holidays_list,
+                  weekday=1)  # (1 monday, 7 sunday)
