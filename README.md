@@ -11,12 +11,12 @@ This system is far from perfect, mainly due to two reasons:
 - there is always someone who 'forgets' on his birthday. Which of course is not cool. 
 
 ## Solution
-MegaSchedule is solving this problem by introducing a schedule of who has to bring the snacks in a way that everybody takes care of this act as close to its birthday as possible.
-Script uses mathematically proven algorithm, which minimizes average distance between member's birthday and date which is assigned to him.
+MegaSchedule is solving this problem by introducing a schedule of who has to bring the snacks in a way that everybody takes care of this as close to their birthday as possible.
+Script uses mathematically proven algorithm that minimizes average distance between member's birthday and date which is assigned to him.
 
 
 ### Mathematical background
-MegaSchedule creates a complete bipartite graph G=(S,T;E) with n member vertices (S) and n meeting vertices (T) and n*n edges (E).
+MegaSchedule creates a complete bipartite graph G=(S,T;E) with n member vertices (S), n meeting vertices (T) and n*n edges (E).
 Since number of members (n) and meetings (m) do not always match, alghorithm takes care of it:
 - [m > n] it creates more then one vertice for each meeting. In this case more then one member will be assigned to some meetings.
 - [m < n] it adds dummy meeting nodes (in form of padding to matrix). In this case not all meetings will be assigned to members.
