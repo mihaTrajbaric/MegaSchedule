@@ -58,8 +58,7 @@ def read_birthdays(file_in, year):
     :return: names and birthdays (lists)
     """
     df = pd.read_csv(file_in, delimiter=';', encoding="cp1250", names=['name', 'date'])
-    df['day'] = df['date'].astype(str).str[:2]
-    df['month'] = df['date'].astype(str).str[3:5]
+    df[['day', 'month', 'birth_year']] = df.date.str.split('.', expand=True)
     df['year'] = np.where((df['month'].astype(int) < 8), year + 1, year)
     df['timestamp'] = pd.to_datetime(df[['year', 'month', 'day']])
     people = df[['name', 'timestamp']].copy()
