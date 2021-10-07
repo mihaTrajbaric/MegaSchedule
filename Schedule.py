@@ -5,7 +5,6 @@ from scipy.optimize import linear_sum_assignment
 from datetime import timezone
 import csv
 import math
-from hungarian import Hungarian
 import codecs
 
 
