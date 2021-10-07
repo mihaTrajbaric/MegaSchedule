@@ -1,6 +1,7 @@
 import datetime
 import pandas as pd
 import numpy as np
+from scipy.optimize import linear_sum_assignment
 from datetime import timezone
 import csv
 import math
@@ -77,12 +78,16 @@ def write_schedule(file_out, result, names, nodes_meetings, birthdays):
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=';')
 
         writer.writeheader()
+        distances = 0
         for pair in result:
             name = names[pair[0]]
             meeting = datetime.datetime.fromtimestamp(nodes_meetings[pair[1]]).replace(tzinfo=timezone.utc).date()
             birthday = datetime.datetime.fromtimestamp(birthdays[pair[0]]).replace(tzinfo=timezone.utc).date()
             distance = abs(birthday - meeting).days
+            distances += distance
             writer.writerow({'meeting': meeting, 'name': name, 'birthday': birthday, 'difference[days]': distance})
+
+        print('Average distance[days]: ', distances / len(birthdays))
 
 
 def make_schedule(file_in, file_out, boundaries, holidays_dates, weekday):
@@ -96,18 +101,12 @@ def make_schedule(file_in, file_out, boundaries, holidays_dates, weekday):
 
     # columns are meetings and rows are members
     matrix = [[int(abs(meeting - member) / 86400) for meeting in nodes_meetings] for member in birthdays]
-
-    matching = Hungarian(matrix)
-    matching.calculate()
-
-    result = matching.get_results()
-    potential = matching.get_total_potential()
-
+    result = linear_sum_assignment(matrix)
+    
+    result = [(result[0][i], result[1][i]) for i in range(len(result[0]))]
     result = sorted(result, key=lambda tup: tup[1])
 
     write_schedule(file_out=file_out, result=result, names=names, nodes_meetings=nodes_meetings, birthdays=birthdays)
-
-    print("potential:", potential)
 
 
 if __name__ == '__main__':

@@ -22,7 +22,7 @@ Since number of members (n) and meetings (m) do not always match, alghorithm tak
 - [m < n] it adds dummy meeting nodes (in form of padding to matrix). In this case not all meetings will be assigned to members.
 Each edge has a nonnegative cost c(i,j) which represents distance (in days) between members's birthday and meeting date.
 We want to find a perfect matching with a minimum total cost.
-This script uses [Thom Dedecko's implementation](http://github.com/tdedecko/hungarian-algorithm) of [hungarian method](http://en.wikipedia.org/wiki/Hungarian_algorithm) for solving this problem.
+This script uses [scipy's implementation](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linear_sum_assignment.html) of [hungarian method](http://en.wikipedia.org/wiki/Hungarian_algorithm) for solving this problem.
 
 ## How to use MegaSchedule
 ### Input file format
